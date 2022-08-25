@@ -67,6 +67,7 @@ class OTNP: public OT<IO> { public:
 			m[1] = Hash::KDF(pk1) ^ data1[i];
 			io->send_data(m, 2*sizeof(block));
 		}
+		io->flush();
 
 		delete[] r;
 		delete[] gr;
@@ -97,6 +98,7 @@ class OTNP: public OT<IO> { public:
 			}
 			io->send_pt(&pk[0]);
 		}
+		io->flush();
 
 		for(int i = 0; i < length; ++i) {
 			io->recv_pt(G, &gr[i]);

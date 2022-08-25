@@ -39,6 +39,7 @@ class OTCO: public OT<IO> { public:
 		G->get_rand_bn(a);
 		A = G->mul_gen(a);
 		io->send_pt(&A);
+		io->flush(); //flush3
 		AaInv = A.mul(a);
 		AaInv = AaInv.inv();
 
@@ -54,6 +55,7 @@ class OTCO: public OT<IO> { public:
 			res[1] = Hash::KDF(BA[i], i) ^ data1[i];
 			io->send_data(res, 2*sizeof(block));
 		}
+		io->flush(); // flush3
 
 		delete[] BA;
 		delete[] B;

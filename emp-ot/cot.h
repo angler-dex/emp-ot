@@ -33,6 +33,7 @@ class COT : public OT<T>{ public:
 			}
 			io->send_data(pad, 2*sizeof(block)*min(ot_bsize,length-i));
 		}
+		io->flush();
 		delete[] data;
 	}
 
@@ -81,7 +82,7 @@ class COT : public OT<T>{ public:
 		block s;
 		io->recv_block(&s,1);
 		mitccrh.setS(s);
-		io->flush();
+		//io->flush();
 		block pad[ot_bsize];
 		for(int i = 0; i < length; i+=ot_bsize) {
 			memcpy(pad, data+i, min(ot_bsize,length-i)*sizeof(block));

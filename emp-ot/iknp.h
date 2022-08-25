@@ -137,6 +137,7 @@ class IKNP: public COT<T> { public:
 			xorBlocks_arr(tmp, r, tmp, local_block_size/128);
 			io->send_data(tmp, local_block_size/8);
 		}
+		io->flush();
 
 		sse_trans((uint8_t *)(out), (uint8_t*)t, 128, block_size);
 	}
@@ -164,7 +165,7 @@ class IKNP: public COT<T> { public:
 		block chi[block_size];
 		q[0] = q[1] = makeBlock(0, 0);
 		io->recv_block(&seed2, 1);
-		io->flush();
+		//io->flush();
 
 		for(int i = 0; i < length/block_size; ++i) {
 			uni_hash_coeff_gen<block_size>(chi, seed2);
@@ -232,6 +233,7 @@ class IKNP: public COT<T> { public:
 
 		io->send_block(&x, 1);
 		io->send_block(t, 2);
+		io->flush();
 	}
 };
 
